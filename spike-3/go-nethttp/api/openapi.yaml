@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: "AREA API (spike: go-nethttp)"
+  version: 0.0.1
+  description: Reference implementation for the HTTP framework spike — pong + hook slice only.
+paths:
+  /api/v1/ping:
+    get:
+      operationId: ping
+      responses:
+        '200':
+          description: Pong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+  /api/v1/hooks:
+    post:
+      operationId: receiveHook
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HookRequest'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HookResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    PingResponse:
+      type: object
+      required: [status, service, version, hook_count]
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+        version:
+          type: string
+        hook_count:
+          type: integer
+          format: int64
+    HookRequest:
+      type: object
+      required: [source]
+      properties:
+        source:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+    HookResponse:
+      type: object
+      required: [id, queued]
+      properties:
+        id:
+          type: string
+          format: uuid
+        queued:
+          type: boolean
