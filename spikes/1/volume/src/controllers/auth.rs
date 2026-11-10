@@ -42,6 +42,14 @@ pub struct ResendVerificationParams {
 
 /// Register function creates a new user with the given parameters and sends a
 /// welcome email to the user
+#[utoipa::path(
+    post,
+    path = "/api/auth/register",
+    request_body = RegisterParams,
+    responses(
+        (status = 200, description = "User registered successfully"),
+    ),
+)]
 #[debug_handler]
 async fn register(
     State(ctx): State<AppContext>,
@@ -133,6 +141,15 @@ async fn reset(State(ctx): State<AppContext>, Json(params): Json<ResetParams>) -
 }
 
 /// Creates a user login and returns a token
+#[utoipa::path(
+    post,
+    path = "/api/auth/login",
+    request_body = LoginParams,
+    responses(
+        (status = 200, description = "Login successful", body = LoginResponse),
+        (status = 401, description = "Invalid credentials"),
+    ),
+)]
 #[debug_handler]
 async fn login(State(ctx): State<AppContext>, Json(params): Json<LoginParams>) -> Result<Response> {
     let Ok(user) = users::Model::find_by_email(&ctx.db, &params.email).await else {
@@ -158,6 +175,14 @@ async fn login(State(ctx): State<AppContext>, Json(params): Json<LoginParams>) -
     format::json(LoginResponse::new(&user, &token))
 }
 
+#[utoipa::path(
+    get,
+    path = "/api/auth/current",
+    responses(
+        (status = 200, description = "Current user", body = CurrentResponse),
+        (status = 401, description = "Unauthorized"),
+    ),
+)]
 #[debug_handler]
 async fn current(auth: auth::JWT, State(ctx): State<AppContext>) -> Result<Response> {
     let user = users::Model::find_by_pid(&ctx.db, &auth.claims.pid).await?;

@@ -118,3 +118,18 @@ auth:
     # `from:` is one of Bearer, Cookie, Query. Cookie and Query also take a
     # `name:`. A YAML list of these tries each in order and uses the first
     # that yields a token. See https://loco.rs/docs/how-to/jwt-locations
+
+initializers:
+  openapi:
+    redoc:
+      url: /redoc
+      # spec_json_url: /redoc/openapi.json
+      # spec_yaml_url: /redoc/openapi.yaml
+    scalar:
+      url: /scalar
+      # spec_json_url: /scalar/openapi.json
+      # spec_yaml_url: /scalar/openapi.yaml
+    swagger:
+      url: /swagger
+      spec_json_url: /api-docs/openapi.json # spec_json_url is required for swagger-ui
+      # spec_yaml_url: /api-docs/openapi.yaml

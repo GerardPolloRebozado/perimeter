@@ -22,7 +22,9 @@ macro_rules! configure_insta {
 async fn test_can_validate_model() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
 
     let invalid_user = users::ActiveModel {
         name: ActiveValue::set("1".to_string()),
@@ -40,7 +42,9 @@ async fn test_can_validate_model() {
 async fn can_create_with_password() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
 
     let params = RegisterParams {
         email: "test@framework.com".to_string(),
@@ -68,8 +72,12 @@ async fn can_create_with_password() {
 async fn handle_create_with_password_with_duplicate() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let new_user = Model::create_with_password(
         &boot.app_context.db,
@@ -89,11 +97,16 @@ async fn handle_create_with_password_with_duplicate() {
 async fn can_find_by_email() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let existing_user = Model::find_by_email(&boot.app_context.db, "user1@example.com").await;
-    let non_existing_user_results = Model::find_by_email(&boot.app_context.db, "un@existing-email.com").await;
+    let non_existing_user_results =
+        Model::find_by_email(&boot.app_context.db, "un@existing-email.com").await;
 
     // Narrowed on purpose — see `can_create_with_password` above.
     assert_debug_snapshot!(existing_user.map(|user| (user.email, user.name)));
@@ -105,11 +118,17 @@ async fn can_find_by_email() {
 async fn can_find_by_pid() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
-    let existing_user = Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111").await;
-    let non_existing_user_results = Model::find_by_pid(&boot.app_context.db, "23232323-2323-2323-2323-232323232323").await;
+    let existing_user =
+        Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111").await;
+    let non_existing_user_results =
+        Model::find_by_pid(&boot.app_context.db, "23232323-2323-2323-2323-232323232323").await;
 
     // Narrowed on purpose — see `can_create_with_password` above.
     assert_debug_snapshot!(existing_user.map(|user| (user.pid, user.email)));
@@ -121,15 +140,25 @@ async fn can_find_by_pid() {
 async fn can_verification_token() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let user = Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111")
         .await
         .expect("Failed to find user by PID");
 
-    assert!(user.email_verification_sent_at.is_none(), "Expected no email verification sent timestamp");
-    assert!(user.email_verification_token.is_none(), "Expected no email verification token");
+    assert!(
+        user.email_verification_sent_at.is_none(),
+        "Expected no email verification sent timestamp"
+    );
+    assert!(
+        user.email_verification_token.is_none(),
+        "Expected no email verification token"
+    );
 
     let result = user
         .into_active_model()
@@ -142,24 +171,36 @@ async fn can_verification_token() {
         .await
         .expect("Failed to find user by PID after setting verification sent");
 
-    assert!(user.email_verification_sent_at.is_some(), "Expected email verification sent timestamp to be present");
-    assert!(user.email_verification_token.is_some(), "Expected email verification token to be present");
+    assert!(
+        user.email_verification_sent_at.is_some(),
+        "Expected email verification sent timestamp to be present"
+    );
+    assert!(
+        user.email_verification_token.is_some(),
+        "Expected email verification token to be present"
+    );
 }
-
 
 #[tokio::test]
 #[serial]
 async fn can_set_forgot_password_sent() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let user = Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111")
         .await
         .expect("Failed to find user by PID");
 
-    assert!(user.reset_sent_at.is_none(), "Expected no reset sent timestamp");
+    assert!(
+        user.reset_sent_at.is_none(),
+        "Expected no reset sent timestamp"
+    );
     assert!(user.reset_token.is_none(), "Expected no reset token");
 
     let result = user
@@ -173,24 +214,36 @@ async fn can_set_forgot_password_sent() {
         .await
         .expect("Failed to find user by PID after setting forgot password sent");
 
-    assert!(user.reset_sent_at.is_some(), "Expected reset sent timestamp to be present");
-    assert!(user.reset_token.is_some(), "Expected reset token to be present");
+    assert!(
+        user.reset_sent_at.is_some(),
+        "Expected reset sent timestamp to be present"
+    );
+    assert!(
+        user.reset_token.is_some(),
+        "Expected reset token to be present"
+    );
 }
-
 
 #[tokio::test]
 #[serial]
 async fn can_verified() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let user = Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111")
         .await
         .expect("Failed to find user by PID");
 
-    assert!(user.email_verified_at.is_none(), "Expected email to be unverified");
+    assert!(
+        user.email_verified_at.is_none(),
+        "Expected email to be unverified"
+    );
 
     let result = user
         .into_active_model()
@@ -203,23 +256,32 @@ async fn can_verified() {
         .await
         .expect("Failed to find user by PID after verification");
 
-    assert!(user.email_verified_at.is_some(), "Expected email to be verified");
+    assert!(
+        user.email_verified_at.is_some(),
+        "Expected email to be verified"
+    );
 }
-
 
 #[tokio::test]
 #[serial]
 async fn can_reset_password() {
     configure_insta!();
 
-    let boot = boot_test::<App>().await.expect("Failed to boot test application");
-    seed::<App>(&boot.app_context).await.expect("Failed to seed database");
+    let boot = boot_test::<App>()
+        .await
+        .expect("Failed to boot test application");
+    seed::<App>(&boot.app_context)
+        .await
+        .expect("Failed to seed database");
 
     let user = Model::find_by_pid(&boot.app_context.db, "11111111-1111-1111-1111-111111111111")
         .await
         .expect("Failed to find user by PID");
 
-    assert!(user.verify_password("12341234"), "Password verification failed for original password");
+    assert!(
+        user.verify_password("12341234"),
+        "Password verification failed for original password"
+    );
 
     let result = user
         .clone()
@@ -233,9 +295,11 @@ async fn can_reset_password() {
         .await
         .expect("Failed to find user by PID after password reset");
 
-    assert!(user.verify_password("new-password"), "Password verification failed for new password");
+    assert!(
+        user.verify_password("new-password"),
+        "Password verification failed for new password"
+    );
 }
-
 
 #[tokio::test]
 #[serial]

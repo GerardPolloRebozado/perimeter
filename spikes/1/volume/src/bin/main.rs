@@ -1,6 +1,6 @@
 use loco_rs::cli;
-use perimeter::app::App;
 use migration::Migrator;
+use perimeter::app::App;
 
 #[tokio::main]
 async fn main() -> loco_rs::Result<()> {
