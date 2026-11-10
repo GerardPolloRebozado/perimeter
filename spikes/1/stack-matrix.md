@@ -1,5 +1,7 @@
 # Tech Stack Individual Option Evaluation Tables
 
+The final veredict is both frameworks are very interesting but they are pretty niche and not stable enough, they will have breaking changes in the future and lack some integrations, if we decide to go with them we have to take
+
 ---
 
 ## 1. Frontend Technologies
