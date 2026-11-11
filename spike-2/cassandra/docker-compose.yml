@@ -1,0 +1,38 @@
+# Cassandra for spike 2. Everything is prefixed "spike2" so it doesn't clash with other teams' spikes.
+# Usage: docker compose up -d   (first boot ~60 s; the init container then creates the schema)
+name: spike2-cassandra
+
+services:
+  cassandra:
+    image: cassandra:5.0
+    container_name: spike2-cassandra
+    ports:
+      - "${CASSANDRA_PORT:-9042}:9042"
+    environment:
+      # Keep the heap small: the dev machine has 8 GB RAM.
+      MAX_HEAP_SIZE: 1G
+      HEAP_NEWSIZE: 256M
+    volumes:
+      - spike2-cassandra-data:/var/lib/cassandra
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces' > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 40s
+
+  # One-shot: waits until Cassandra is healthy, applies schema.cql, then exits.
+  cassandra-init:
+    image: cassandra:5.0
+    container_name: spike2-cassandra-init
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    volumes:
+      - ./schema:/schema:ro
+    entrypoint: ["cqlsh", "cassandra", "-f", "/schema/schema.cql"]
+    restart: "no"
+
+volumes:
+  spike2-cassandra-data:
+    name: spike2-cassandra-data
