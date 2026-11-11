@@ -1,6 +1,6 @@
 module perimeter-volume/spike-3/go-chi
 
-go 1.23
+go 1.27
 
 require (
 	github.com/coreos/go-oidc/v3 v3.11.0
