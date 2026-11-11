@@ -1,55 +1,57 @@
 # Tech Stack Individual Option Evaluation Tables
 
-Scores come from the 2026-11-11 spikes. A criterion the spike did not run is scored **2**: that means no evidence from this run, not a measured failure. Notes say which is which.
-
 ---
 
 ## 1. Frontend Technologies
 
-Option scored: **React Native (Expo SDK 58)**, from `spikes/react-native/SPIKE.md`.
-
-| Criterion                               |  Weight  |  Score (1-5)   | Justification / Notes |
-| :-------------------------------------- | :------: | :------------: | :-------------------- |
-| **Cross-Platform / Single Codebase**    |   20%    |       3        | One `App.js` codebase. Expo web rendered the ping body. The iOS simulator never booted (`simctl` exit 72, no available runtime), and Android was not run. |
-| **Native Web/app Compatibility**        |   15%    |       3        | Web worked after adding `react-dom`, `react-native-web`, and `@expo/metro-runtime`. No native screen was shown. |
-| **Developer Velocity & Ease of Coding** |   15%    |       4        | `create-expo-app` and a short `App.js` reached a visible `{"status":"ok"}` the same afternoon. The lost time was missing web packages, not the component. |
-| **Ecosystem Maturity**                  |   15%    |       4        | The SDK 58 CLI and blank template installed and bundled on Node 26.13. The blank template still did not include web support. |
-| **Performance & Speed**                 |   10%    |       3        | Metro bundled 203 modules in about 1.9s. No device startup time or frame-time measurement. |
-| **Ease of AI Tools & UI Integration**   |   10%    |       2        | Not exercised. No component library and no model call in this spike. |
-| **Accessibility (WCAG AA Compliance)**  |   15%    |       2        | Not exercised. The screen is one `Text` node. No contrast, label, or screen-reader check. |
-| **Weighted Total**                      | **100%** | **3.05 / 5.0** | `0.20×3 + 0.15×3 + 0.15×4 + 0.15×4 + 0.10×3 + 0.10×2 + 0.15×2` |
+| Criterion                               |  Weight  |  Score (1-5)   | Justification / Notes                                                                               |
+| :-------------------------------------- | :------: | :------------: | :-------------------------------------------------------------------------------------------------- |
+| **Cross-Platform / Single Codebase**    |   20%    |       5        | React Native with Expo builds iOS, Android, and web from one JavaScript project.                    |
+| **Native Web/app Compatibility**        |   15%    |       5        | The same project runs as a native iOS app, a native Android app, and a web app.                     |
+| **Developer Velocity & Ease of Coding** |   15%    |       4        | React components are straightforward to write. TypeScript is easy to add and is not effortless.     |
+| **Ecosystem Maturity**                  |   15%    |       5        | React Native, Expo, and TypeScript are widely used.                                                 |
+| **Performance & Speed**                 |   10%    |       4        | Fast enough for typical screens. Heavy graphics are faster in Swift or Kotlin.                      |
+| **Ease of AI Tools & UI Integration**   |   10%    |       4        | React has many ready-made UI libraries, and JavaScript has maintained AI SDKs that are easy to add. |
+| **Accessibility (WCAG AA Compliance)**  |   15%    |       4        | React Native provides accessibility props, and web React can implement WCAG patterns.               |
+| **Weighted Total**                      | **100%** | **4.50 / 5.0** | `0.20×5 + 0.15×5 + 0.15×4 + 0.15×5 + 0.10×4 + 0.10×4 + 0.15×4`                                      |
 
 ---
 
 ## 2. Backend Technologies (Application Server)
 
-Option scored: **NestJS 12**, from `spikes/nestjs/SPIKE.md`.
-
-| Criterion                               |  Weight  |  Score (1-5)   | Justification / Notes |
-| :-------------------------------------- | :------: | :------------: | :-------------------- |
-| **OpenAPI / Swagger Generation**        |   15%    |       2        | Not exercised. No Swagger module was added, so this run produced no spec. |
-| **OAuth 2.0 & OIDC Ecosystem**          |   15%    |       2        | Not exercised. No auth guard, Passport module, or token flow. |
-| **Ease of AI Tools & LLM Integration**  |   10%    |       2        | Not exercised. No model client or tool call. |
-| **Developer Velocity & Ease of Coding** |   10%    |       4        | `nest new` plus one `GET /ping` handler met the check the same afternoon. The sharp edge was `nodenext`: `./app.module` failed until the import used `.js`. |
-| **Async Hook & Background Execution**   |   20%    |       3        | Bootstrap and the request path are async, and the app stayed up under `start:dev`. No queue, cron, or in-process background job was run. The MongoDB check was a separate script. |
-| **Ecosystem Maturity**                  |   10%    |       4        | Nest 12.4.2, the CLI, watch mode, and Vitest all ran on Node 26.13. The generated unit test still expected `getHello()` and had to be pointed at `ping()`. |
-| **Security**                            |   10%    |       3        | `PORT` comes from the environment and the process throws if it is missing. No `8080` literal in `src/`. `enableCors()` was then opened to `*` so Expo web could read the route. No authentication. |
-| **Speed & performance**                 |   10%    |       3        | Watch compile and startup took about a second, and `curl` returned immediately. No load test. |
-| **Weighted Total**                      | **100%** | **2.80 / 5.0** | `0.15×2 + 0.15×2 + 0.10×2 + 0.10×4 + 0.20×3 + 0.10×4 + 0.10×3 + 0.10×3` |
+| Criterion                               |  Weight  |  Score (1-5)   | Justification / Notes                                                                                            |
+| :-------------------------------------- | :------: | :------------: | :--------------------------------------------------------------------------------------------------------------- |
+| **OpenAPI / Swagger Generation**        |   15%    |       5        | The official `@nestjs/swagger` package builds an OpenAPI document from controller decorators. It is easy to add. |
+| **OAuth 2.0 & OIDC Ecosystem**          |   15%    |       4        | NestJS integrates with Passport, which provides OAuth 2.0 and OpenID Connect strategies.                         |
+| **Ease of AI Tools & LLM Integration**  |   10%    |       4        | A NestJS service can call LLM APIs with the usual TypeScript SDKs.                                               |
+| **Developer Velocity & Ease of Coding** |   10%    |       4        | A route is a TypeScript method in Nest's module layout. TypeScript is easy to use and is not effortless.         |
+| **Async Hook & Background Execution**   |   20%    |       5        | Handlers are async. Official packages add cron tasks and job queues.                                             |
+| **Ecosystem Maturity**                  |   10%    |       5        | NestJS is an established, widely used Node.js framework.                                                         |
+| **Security**                            |   10%    |       4        | Guards, validation pipes, and common Node middleware cover the usual API checks.                                 |
+| **Speed & performance**                 |   10%    |       4        | Node.js is enough for a normal API. It is not the fastest server runtime.                                        |
+| **Weighted Total**                      | **100%** | **4.45 / 5.0** | `0.15×5 + 0.15×4 + 0.10×4 + 0.10×4 + 0.20×5 + 0.10×5 + 0.10×4 + 0.10×4`                                          |
 
 ---
 
 ## 3. Database & Persistence Technologies
 
-Option scored: **MongoDB Community 9.0.8**, from `spikes/mongodb/SPIKE.md`.
-
-The three weights below are what the template lists. They sum to 60%, not 100%. The total is their weighted average, rescaled to /5.0: `(0.20×5 + 0.20×4 + 0.20×2) / 0.60`.
+**MongoDB: taken out directly.** The MongoDB server does not run on iOS. An iPhone app can still reach it through a backend. It is not scored as an on-device database.
 
 | Criterion                              |  Weight  |  Score (1-5)   | Justification / Notes |
 | :------------------------------------- | :------: | :------------: | :-------------------- |
-| **Dynamic Workflow / JSON Storage**    |   20%    |       5        | The script inserted `{ testedAt }` into `area.probes` with no schema and read that same value back. |
-| **Developer Velocity & Ease of Use**   |   20%    |       4        | The driver script is short and the second run passed immediately. The lost time was Homebrew refusing the untrusted tap, then `mongosh` connecting before `mongod` was listening. |
-| **Reliability & Relational Integrity** |   20%    |       2        | One insert and one read. No transaction, crash, or replica test. The spike also showed no relational constraints, which this database does not provide. |
-| **Weighted Total**                     | **60%**  | **3.67 / 5.0** | Average of the three scores. The template has no further database criteria to make the weights reach 100%. |
+| **Dynamic Workflow / JSON Storage**    |   20%    |                |                       |
+| **Developer Velocity & Ease of Use**   |   20%    |                |                       |
+| **Reliability & Relational Integrity** |   20%    |                |                       |
+| **Weighted Total**                     | **100%** | **0.00 / 5.0** |                       |
 
 ---
+
+Conclusion:
+
+I worked previously with react and ts. They do work very well together, it is easy to see the structure of a project and changing/adding things is not hard. 
+
+I know very well that ai integration is good. Vivecodabilty is too (I crafted acediploma.com with cursor only). 
+
+Points and justification are mostly done by cursor because I didn't really know the answers to those questions.
+
+Im not sure if react is the best frontend (many ppl like it and many hate it, but I didn't have issues with it), but nodejs looks really good and i want to learn more about it. 
