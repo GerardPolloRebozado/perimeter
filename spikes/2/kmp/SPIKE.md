@@ -1,6 +1,10 @@
 # Spike 3 notes: Kotlin Multiplatform + Compose (web + Android)
 
-**Code:** [`spike-2/kmp/`](../../../spike-2/kmp/)
+**Code:** this directory — a KMP/Compose project colocated with these notes
+
+## Timebox
+
+**3 hours, agreed by the whole team before any code was written — the full target was reached inside it, on both platforms.** Gradle setup (version catalog, plugins, targets, source sets) consumed the largest share of the box. When the timer rang, the web app and the Android app were both running against the backend on `:8080`, and the 4 shared MockEngine tests passed. The remaining minutes went into the screenshots and the accessibility attributes (`heading()`, `liveRegion`).
 
 | Web, backend up | Web, backend down | Android permission prompt | Android, backend up |
 |---|---|---|---|
@@ -28,17 +32,17 @@ Starting point: the KMP wizard (kmp.jetbrains.com).
 
 ```sh
 # 1. backend (spike 1) in another terminal
-cd spike-2/java-spring && PORT=8080 ./gradlew bootRun
+cd spikes/2/java-spring && PORT=8080 ./gradlew bootRun
 
 # 2a. web: opens http://localhost:8081 and reloads on changes
-cd spike-2/kmp && ./gradlew :webApp:wasmJsBrowserDevelopmentRun
+cd spikes/2/kmp && ./gradlew :webApp:wasmJsBrowserDevelopmentRun
 
 # 2b. Android: start the emulator (Android Studio → Device Manager), then
-cd spike-2/kmp && ./gradlew :androidApp:installDebug
+cd spikes/2/kmp && ./gradlew :androidApp:installDebug
 #     open "spike2-kmp" on the emulator and tap Allow on the permission prompt
 
 # tests (shared code, run on the JVM, no server needed)
-cd spike-2/kmp && ./gradlew :shared:testAndroidHostTest
+cd spikes/2/kmp && ./gradlew :shared:testAndroidHostTest
 ```
 
 `local.properties` (not committed) points Gradle to the Android SDK. If it's missing, Gradle uses `ANDROID_HOME`.

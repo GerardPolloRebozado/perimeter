@@ -1,6 +1,12 @@
 # Spike 1 notes: Java + Spring Boot
 
-**Code:** [`spike-2/java-spring/`](../../../spike-2/java-spring/)
+**Code:** this directory — a Gradle project colocated with these notes
+
+## Timebox
+
+**3 hours, agreed by the whole team before any code was written — the full target was reached inside it.** The same length for every technology so we could not quietly favour the one we already liked: long enough to absorb toolchain setup (Gradle download, first build) and still implement the target plus tests; short enough that stopping when the timer rings costs little.
+
+When time ran out we were past the target: `:8080/ping` returning exactly `{"status":"ok"}` with the port read only from `PORT`, and 4 tests passing. The remaining minutes went into the CORS config and this file.
 
 ## What was built
 
@@ -18,7 +24,7 @@
 ## How to run it
 
 ```sh
-cd spike-2/java-spring
+cd spikes/2/java-spring
 ./gradlew test                     # 4 tests
 PORT=8080 ./gradlew bootRun        # or: ./gradlew bootJar && PORT=8080 java -jar build/libs/spike2-java-spring-0.0.1-SNAPSHOT.jar
 curl -i http://localhost:8080/ping

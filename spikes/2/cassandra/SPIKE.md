@@ -1,6 +1,10 @@
 # Spike 2 notes: Cassandra + Spring Data Cassandra
 
-**Code:** [`spike-2/cassandra/`](../../../spike-2/cassandra/), which started as a copy of `spike-2/java-spring/`
+**Code:** this directory, which started as a copy of [`../java-spring/`](../java-spring/)
+
+## Timebox
+
+**3 hours, agreed by the whole team before any code was written — the full target was reached inside it.** Docker consumed the biggest single slice: image pull plus ~75 s until the node was ready and the schema applied. Even so, when the timer rang we had `:8080/ping` (both the 200 case and the 503-when-Cassandra-is-down variant), the workflow CRUD endpoints working against the two tables, and 3 tests passing. The remaining minutes went into `schema.cql` and this file.
 
 ## What was built
 
@@ -20,7 +24,7 @@
 ## How to run it
 
 ```sh
-cd spike-2/cassandra
+cd spikes/2/cassandra
 docker compose up -d               # ~75 s until the schema is created (watch: docker compose ps)
 ./gradlew test                     # 3 tests, no Cassandra needed
 PORT=8080 ./gradlew bootRun
