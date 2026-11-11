@@ -1,0 +1,11 @@
+# ----------------
+# Systems & IDEs
+# ----------------
+.vscode/
+.idea
+DS_Store
+
+# ----------------
+# General
+# ----------------
+docs/area-bootstrap.pdf
