@@ -1,0 +1,15 @@
+{
+  "name": "area-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm --filter backend-nestjs run build",
+    "test": "pnpm --filter backend-nestjs run test",
+    "generate:api-client": "bash scripts/generate-api-client.sh"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.4.9"
+  }
+}

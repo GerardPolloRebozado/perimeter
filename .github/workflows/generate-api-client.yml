@@ -1,0 +1,81 @@
+name: Generate API Client
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/backend-nestjs/**'
+      - 'scripts/generate-api-client.sh'
+  pull_request:
+    paths:
+      - 'packages/backend-nestjs/**'
+      - 'scripts/generate-api-client.sh'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12
+
+      - name: Install backend dependencies
+        run: |
+          cd packages/backend-nestjs
+          pnpm install --strict-peer-dependencies=false
+
+      - name: Build NestJS backend
+        run: |
+          cd packages/backend-nestjs
+          pnpm run build
+
+      - name: Generate OpenAPI JSON
+        run: |
+          cd packages/backend-nestjs
+          # Start NestJS in background to serve OpenAPI spec
+          pnpm run start:dev &
+          BACKEND_PID=$!
+          sleep 15
+
+          # Fetch OpenAPI JSON from running server
+          curl -s http://localhost:8080/api-json > openapi.json
+
+          # Stop backend
+          kill $BACKEND_PID 2>/dev/null || true
+
+          echo "OpenAPI JSON generated at packages/backend-nestjs/openapi.json"
+          head -20 openapi.json
+
+      - name: Generate Kotlin API client
+        run: |
+          chmod +x scripts/generate-api-client.sh
+          bash scripts/generate-api-client.sh
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet packages/api-client/ packages/backend-nestjs/openapi.json || echo "changes_detected=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit generated client
+        if: steps.changes.outputs.changes_detected == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add packages/api-client/ packages/backend-nestjs/openapi.json
+          git commit -m "🤖 Generated Kotlin API client from OpenAPI spec"
+          git push
