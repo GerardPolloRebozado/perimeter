@@ -181,7 +181,7 @@ func run() error {
 	if verifier != nil {
 		root = func(next http.Handler) http.Handler {
 			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				if r.URL.Path == "/healthz" || r.URL.Path == "/api/v1/ping" {
+				if r.URL.Path == "/health" || r.URL.Path == "/api/v1/ping" {
 					next.ServeHTTP(w, r)
 					return
 				}
@@ -201,14 +201,14 @@ func run() error {
 	}
 
 	// Healthz endpoint
-	healthz := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	health := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status":"ok"}`))
 	})
 
 	mux := http.NewServeMux()
-	mux.Handle("/healthz", healthz)
+	mux.Handle("/health", health)
 	mux.Handle("/", root)
 
 	srv := &http.Server{

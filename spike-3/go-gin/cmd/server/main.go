@@ -76,7 +76,7 @@ func run() error {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	r.GET("/healthz", func(c *gin.Context) {
+	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, map[string]string{"status": "ok"})
 	})
 
@@ -84,11 +84,11 @@ func run() error {
 	r.GET("/api/v1/ping", h.Ping)
 
 	// Gin-native JWT middleware: validates Bearer token using go-oidc verifier,
-	// skipping /ping and /healthz. gin.HandlerFunc uses *gin.Context
+	// skipping /ping and /health. gin.HandlerFunc uses *gin.Context
 	api := r.Group("/api/v1")
 	if verifier != nil {
 		api.Use(func(c *gin.Context) {
-			if c.FullPath() == "/api/v1/ping" || c.FullPath() == "/healthz" {
+			if c.FullPath() == "/api/v1/ping" || c.FullPath() == "/health" {
 				c.Next()
 				return
 			}

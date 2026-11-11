@@ -77,17 +77,17 @@ func run() error {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/healthz", func(c echo.Context) error {
+	e.GET("/health", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{"status": "ok"})
 	})
 
 	h := api.New(c, q, asynqClient)
 
 	// Echo-native JWT middleware: validates Bearer token using go-oidc verifier,
-	// skipping /ping and /healthz.
+	// skipping /ping and /health.
 	e.Group("/api/v1").Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			if c.Path() == "/ping" || c.Path() == "/healthz" {
+			if c.Path() == "/ping" || c.Path() == "/health" {
 				return next(c)
 			}
 			if verifier == nil {

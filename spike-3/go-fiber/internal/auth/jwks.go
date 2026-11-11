@@ -10,7 +10,7 @@ import (
 )
 
 var PublicPaths = map[string]bool{
-	"/healthz":     true,
+	"/health":     true,
 	"/api/v1/ping": true,
 }
 
