@@ -35,14 +35,14 @@
 
 ## 3. Database & Persistence Technologies
 
-**MongoDB: taken out directly.** The MongoDB server does not run on iOS. An iPhone app can still reach it through a backend. It is not scored as an on-device database.
+MongoDB does not run on the iPhone. An iOS app uses it by hosting the database remotely and reaching it through the backend.
 
-| Criterion                              |  Weight  |  Score (1-5)   | Justification / Notes |
-| :------------------------------------- | :------: | :------------: | :-------------------- |
-| **Dynamic Workflow / JSON Storage**    |   20%    |                |                       |
-| **Developer Velocity & Ease of Use**   |   20%    |                |                       |
-| **Reliability & Relational Integrity** |   20%    |                |                       |
-| **Weighted Total**                     | **100%** | **0.00 / 5.0** |                       |
+| Criterion                              |  Weight  |  Score (1-5)   | Justification / Notes                                                                                                                                          |
+| :------------------------------------- | :------: | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Dynamic Workflow / JSON Storage**    |   20%    |       5        | MongoDB stores JSON-like documents and does not require a fixed schema.                                                                                       |
+| **Developer Velocity & Ease of Use**   |   20%    |       4        | The Node.js driver connects to a remote database with a short client. Remote hosting is the normal setup, including for an iOS app.                           |
+| **Reliability & Relational Integrity** |   20%    |       3        | A remote replica set is a normal reliable deployment. MongoDB does not enforce foreign keys. Multi-document transactions exist.                               |
+| **Weighted Total**                     | **60%**  | **4.00 / 5.0** | The three weights sum to 60%. Total is `(0.20×5 + 0.20×4 + 0.20×3) / 0.60`.                                                                                   |
 
 ---
 
