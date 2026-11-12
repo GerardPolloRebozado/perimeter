@@ -28,6 +28,7 @@ area-monorepo/
 | Frontend | Kotlin Multiplatform + Compose (Android + web) | `docs/adr/0002-kotlin-multiplatform-frontend.md` |
 | Database | PostgreSQL (JSONB for workflow configs) | `docs/adr/0003-postgresql-database.md` |
 | Contingency | MongoDB — deferred with explicit triggers | `docs/adr/0004-mongodb-workflow-json-future.md` |
+| Hosting | Azure, managed with Terraform | `docs/adr/0005-azure-terraform.md` |
 
 **Stack decision:** `decision/RECOMMENDATION.md`
 

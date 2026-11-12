@@ -11,6 +11,7 @@
 | Frontend | **Kotlin Multiplatform + Compose** (Android + web) | spike 2 - `spikes/2/kmp/` | [ADR 0002](adr/0002-kotlin-multiplatform-frontend.md) |
 | Database | **PostgreSQL** (JSONB for workflow configs) | spikes 2 & 3 | [ADR 0003](adr/0003-postgresql-database.md) |
 | Contingency | MongoDB - **not adopted**, deferred with explicit triggers | spike 5 matrix | [ADR 0004](adr/0004-mongodb-workflow-json-future.md) |
+| Hosting | **Azure** with Terraform (Container Apps, Postgres, GitHub Actions) | team decision, no spike | [ADR 0005](adr/0005-azure-terraform.md) |
 
 ## How the decision was made
 
