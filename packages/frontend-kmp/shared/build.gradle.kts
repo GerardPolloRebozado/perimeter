@@ -1,63 +1,107 @@
-plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.dokka")
-}
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-repositories {
-    mavenCentral()
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Shared"
+            isStatic = true
+        }
+    }
     jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    wasmJs()
-    
+    js {
+        browser()
+        binaries.executable()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
+    android {
+       namespace = "org.area.perimeter.shared"
+       compileSdk = libs.versions.android.compileSdk.get().toInt()
+       minSdk = libs.versions.android.minSdk.get().toInt()
+       compilerOptions {
+           jvmTarget = JvmTarget.JVM_11
+       }
+       androidResources {
+           enable = true
+       }
+       withHostTest {
+           isIncludeAndroidResources = true
+       }
+       withDeviceTestBuilder {
+           sourceSetTreeName = "test"
+       }.configure {
+           instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+       }
+    }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                // Import the generated API client
-                implementation(project(":api-client"))
-                
-                // Ktor HTTP client for calling NestJS backend
-                implementation("io.ktor:ktor-client-core:2.0.3")
-                implementation("io.ktor:ktor-client-content-negotiation:2.0.3")
-                implementation("io.ktor:ktor-client-serialization:2.0.3")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.3")
-                
-                // Kotlinx serialization for JSON
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-            }
+        commonMain.dependencies {
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Ktor core - multiplatform artifact, works on all targets
+            implementation("io.ktor:ktor-client-core:3.6.1")
+            implementation("io.ktor:ktor-client-content-negotiation:3.6.1")
+            implementation("io.ktor:ktor-client-serialization:3.6.1")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.1")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
         }
-        val androidMain by getting {
-            dependsOn(commonMain)
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
-        val iosX64Main by getting {
-            dependsOn(commonMain)
+        androidMain.dependencies {
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.compose.uiTooling)
+            // OkHttp engine for Android
+            implementation("io.ktor:ktor-client-okhttp:3.6.1")
         }
-        val iosArm64Main by getting {
-            dependsOn(commonMain)
+        jvmMain.dependencies {
+            // OkHttp engine for JVM desktop
+            implementation("io.ktor:ktor-client-okhttp:3.6.1")
         }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(commonMain)
+        iosArm64Main.dependencies {
+            // Darwin engine for iOS device
+            implementation("io.ktor:ktor-client-darwin:3.6.1")
         }
-        val wasmJsMain by getting {
-            dependsOn(commonMain)
+        iosSimulatorArm64Main.dependencies {
+            // Darwin engine for iOS simulator
+            implementation("io.ktor:ktor-client-darwin:3.6.1")
         }
-        
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        jsMain.dependencies {
+            implementation(libs.wrappers.browser)
+            // JS engine for web
+            implementation("io.ktor:ktor-client-js:3.6.1")
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.wrappers.browser)
+            // JS engine for Wasm (uses browser fetch)
+            implementation("io.ktor:ktor-client-js:3.6.1")
+        }
+        getByName("androidDeviceTest").dependencies {
+            implementation(libs.androidx.testRunner)
         }
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("shared") {
-            from(components["jvm"])
-        }
-    }
+dependencies {
+    androidRuntimeClasspath(libs.compose.uiTooling)
 }

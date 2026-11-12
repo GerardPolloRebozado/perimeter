@@ -43,3 +43,26 @@ devenv.local.yaml
 #nestjs
 node_modules
 dist
+
+# Gradle
+.gradle/
+build/
+*.gradle.kts.sha1
+!gradle/libs.versions.toml
+local.properties
+
+# Docker
+.dockerignore
+
+# Environment
+.env
+
+# OpenAPI generator
+.openapi-generator/
+.openapi-generator-ignore
+
+# Kotlin
+*.iws
+*.iml
+*.ipr
+out/

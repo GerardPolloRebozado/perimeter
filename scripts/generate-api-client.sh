@@ -9,7 +9,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 OPENAPI_JSON="$REPO_ROOT/packages/backend-nestjs/openapi.json"
 OUTPUT_DIR="$REPO_ROOT/packages/api-client"
-GENERATOR_VERSION="6.6.0"
+GENERATOR_VERSION="latest"
 
 echo "=== AREA API Client Generator ==="
 echo "OpenAPI spec: $OPENAPI_JSON"

@@ -7,10 +7,17 @@ import * as path from 'path';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // CORS for KMP frontend (Android + web)
+  // CORS for KMP frontend (Android emulator + web)
   app.enableCors({
-    origin: ['http://localhost:8081', 'http://localhost:3000', 'http://10.0.2.2:8080'],
+    origin: [
+      'http://localhost:8081',
+      'http://localhost:3000',
+      'http://10.0.2.2:8080',
+      'http://10.0.2.2:8081',
+      '*',
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
 
   // Swagger/OpenAPI documentation
@@ -19,6 +26,7 @@ async function bootstrap() {
     .setDescription('Area automation platform API - OpenAPI spec for Kotlin Multiplatform client generation')
     .setVersion('1.0')
     .addTag('area')
+    .addTag('ping')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
@@ -39,7 +47,8 @@ async function bootstrap() {
   const port = process.env.PORT ?? 8080;
   await app.listen(port);
   console.log(`API running on http://localhost:${port}`);
-  console.log(`OpenAPI spec at http://localhost:${port}/api-json`);
+  console.log(`Ping endpoint: http://localhost:${port}/ping`);
+  console.log(`OpenAPI spec: http://localhost:${port}/api-json`);
   console.log(`OpenAPI JSON written to ${openapiPath}`);
 }
 bootstrap();

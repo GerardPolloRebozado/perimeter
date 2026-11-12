@@ -6,11 +6,7 @@ settings:
 
 importers:
 
-  .:
-    devDependencies:
-      '@nestjs/cli':
-        specifier: ^10.4.9
-        version: 10.4.9(uglify-js@3.19.3)
+  .: {}
 
   packages/backend-nestjs:
     dependencies:

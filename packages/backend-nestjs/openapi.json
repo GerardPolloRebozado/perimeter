@@ -14,6 +14,21 @@
           "App"
         ]
       }
+    },
+    "/ping": {
+      "get": {
+        "operationId": "PingController_ping",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Server is running"
+          }
+        },
+        "summary": "Health check endpoint",
+        "tags": [
+          "ping"
+        ]
+      }
     }
   },
   "info": {
@@ -25,6 +40,10 @@
   "tags": [
     {
       "name": "area",
+      "description": ""
+    },
+    {
+      "name": "ping",
       "description": ""
     }
   ],

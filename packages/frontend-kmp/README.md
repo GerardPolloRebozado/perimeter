@@ -1,157 +1,46 @@
-# AREA Frontend — Kotlin Multiplatform Setup
+This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
 
-## What you need to install
+* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
+  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
-### 1. JDK 17 (required)
+* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
+  It contains several subfolders:
+  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
+  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
+    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
+    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
+    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
+    folder is the appropriate location.
 
-KMP targets JVM and needs Java 17+.
+### Running the apps
 
-| OS | Install command |
-|---|---|
-| macOS | `brew install --cask temurin@17` |
-| Linux (deb/rpm) | `sudo apt install openjdk-17-jdk` |
-| Windows | Download from [Adoptium](https://adoptium.net/) |
+Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
 
-Verify: `java -version` → should show `17.x`
+- Android app: `./gradlew :androidApp:assembleDebug`
+- Desktop app:
+  - Hot reload: `./gradlew :desktopApp:hotRun --auto`
+  - Standard run: `./gradlew :desktopApp:run`
+- Web app:
+  - Wasm target (faster, modern browsers): `./gradlew :webApp:wasmJsBrowserDevelopmentRun`
+  - JS target (slower, supports older browsers): `./gradlew :webApp:jsBrowserDevelopmentRun`
+- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
 
-### 2. Android Studio (for Android target)
+### Running tests
 
-- Download: https://developer.android.com/studio
-- Install with: Android SDK, Android SDK Command-line Tools, Build Tools
-- Set environment variable: `ANDROID_HOME` (or `ANDROID_SDK_ROOT`)
+Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
 
-Verify: `which android` or `echo $ANDROID_HOME`
-
-### 3. Gradle
-
-The project uses the Gradle Wrapper (`gradlew` / `gradlew.bat`), so you don't need to install Gradle globally.
-
-### 4. Web / Wasm target (optional)
-
-- A modern browser with WasmGC support (Chrome 119+, Firefox 120+, Safari 17.4+)
-- Node.js + pnpm (only needed if you run the web dev server)
-
-### 5. iOS target (optional, macOS only)
-
-- Xcode 15+ from the Mac App Store
-- For simulator testing: `xcode-select --install`
-
----
-
-## Project structure
-
-```
-packages/frontend-kmp/
-├── settings.gradle.kts          # Module declarations
-├── build.gradle.kts             # Root build config
-├── shared/                      # Shared KMP module (JVM + Android + Wasm)
-│   ├── build.gradle.kts
-│   └── src/
-│       ├── commonMain/          # Code shared by all platforms
-│       │   └── kotlin/area/shared/
-│       │       ├── ApiClientFactory.kt   # Creates typed API client from OpenAPI
-│       │       └── WorkflowService.kt    # Business logic using generated client
-│       ├── androidMain/         # Android-specific code
-│       ├── wasmJsMain/          # Web/Wasm-specific code
-│       └── commonTest/          # Shared tests
-└── app/                         # Android app module
-    ├── build.gradle.kts
-    └── src/main/kotlin/area/app/
-```
+- Android tests: `./gradlew :shared:testAndroidHostTest`
+- Desktop tests: `./gradlew :shared:jvmTest`
+- Web tests:
+  - Wasm target: `./gradlew :shared:wasmJsTest`
+  - JS target: `./gradlew :shared:jsTest`
+- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
 
 ---
 
-## Key dependencies
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
+[Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/),
+[Kotlin/Wasm](https://kotl.in/wasm/)…
 
-| Dependency | Version | Purpose | Docs |
-|---|---|---|---|
-| Kotlin Multiplatform | 1.9.0 | Cross-platform language | https://kotlinlang.org/docs/multiplatform.html |
-| Kotlin Serialization JSON | 1.6.2 | JSON (de)serialization | https://kotlinlang.org/docs/serialization.html |
-| Ktor Client Core | 2.0.3 | HTTP client | https://ktor.io/docs/client-create-client.html |
-| Ktor Serialization | 2.0.3 | JSON client plugin | https://ktor.io/docs/client-serialization.html |
-| OpenAPI Generator | 6.6.0 | Generates Kotlin client from OpenAPI | https://openapi-generator.tech/docs/generators/kotlin |
-
----
-
-## Running the project
-
-### Shared module (JVM tests only, no device needed)
-
-```bash
-cd packages/frontend-kmp
-./gradlew :shared:test
-```
-
-### Android app
-
-```bash
-cd packages/frontend-kmp
-./gradlew :app:installDebug   # installs on connected emulator/device
-./gradlew :app:uninstallDebug # uninstall
-```
-
-### Web / Wasm
-
-```bash
-cd packages/frontend-kmp
-./gradlew :shared:wasmJsBrowserDevelopmentRun
-# Opens http://localhost:8080 (dev server reloads on changes)
-```
-
----
-
-## Type sharing workflow (NestJS ↔ KMP)
-
-1. **Backend** (`packages/backend-nestjs/`): NestJS controllers use `@nestjs/swagger` decorators on DTOs
-2. **OpenAPI JSON**: `packages/backend-nestjs/openapi.json` is written by `src/main.ts` on startup
-3. **Generation**: `scripts/generate-api-client.sh` runs OpenAPI Generator → produces Kotlin client in `packages/api-client/`
-4. **Frontend** (`packages/frontend-kmp/shared/`): imports `@area/api-client` and calls typed methods
-
-```kotlin
-// Generated client usage (type-safe)
-val api = ApiClientFactory.create()        // DefaultApi from OpenAPI
-val workflows: List<WorkflowDto> = api.getWorkflows()  // Kotlin data class from OpenAPI
-```
-
----
-
-## Documentation links
-
-| Topic | Link |
-|---|---|
-| Kotlin Multiplatform | https://kotlinlang.org/docs/multiplatform.html |
-| KMP setup | https://kotlinlang.org/docs/setup-kmm.html |
-| Ktor Client | https://ktor.io/docs/client-quick-start.html |
-| Kotlin Serialization | https://kotlinlang.org/docs/serialization.html |
-| OpenAPI Generator Kotlin | https://openapi-generator.tech/docs/generators/kotlin |
-| Android Studio | https://developer.android.com/studio |
-| JDK 17 (Adoptium) | https://adoptium.net/ |
-
----
-
-## Troubleshooting
-
-**`ANDROID_HOME` not found**
-```
-export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
-```
-
-**Gradle daemon memory issues**
-Create `gradle.properties` in `packages/frontend-kmp/`:
-```
-org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
-```
-
-**Wasm build fails**
-Make sure your browser supports WasmGC (Chrome 119+, Firefox 120+).
-
----
-
-## Next steps (to improve)
-
-- [ ] Add iOS target configuration (macOS only)
-- [ ] Add Compose Multiplatform UI dependencies
-- [ ] Configure API client version pinning in `gradle/libs.versions.toml`
-- [ ] Add CI workflow for KMP builds
-- [ ] Add shared database/models module
+We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
+If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
