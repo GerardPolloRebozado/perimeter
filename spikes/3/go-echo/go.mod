@@ -1,4 +1,4 @@
-module perimeter-volume/spike-3/go-echo
+module surface-volume/spike-3/go-echo
 
 go 1.27
 

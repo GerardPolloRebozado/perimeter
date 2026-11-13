@@ -32,14 +32,14 @@
     }
   },
   "info": {
-    "title": "AREA API",
-    "description": "Area automation platform API - OpenAPI spec for Kotlin Multiplatform client generation",
+    "title": "Surface Volume API",
+    "description": "Surface Volume automation platform API - OpenAPI spec for Kotlin Multiplatform client generation",
     "version": "1.0",
     "contact": {}
   },
   "tags": [
     {
-      "name": "area",
+      "name": "surface-volume",
       "description": ""
     },
     {

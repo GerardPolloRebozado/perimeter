@@ -8,9 +8,9 @@ import (
 	"github.com/hibiken/asynq"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 
-	"perimeter-volume/spike-3/go-fiber/internal/cfg"
-	"perimeter-volume/spike-3/go-fiber/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-fiber/internal/jobs"
+	"surface-volume/spike-3/go-fiber/internal/cfg"
+	"surface-volume/spike-3/go-fiber/internal/db/sqlc"
+	"surface-volume/spike-3/go-fiber/internal/jobs"
 )
 
 type Handler struct {

@@ -1,6 +1,6 @@
 use insta::{assert_debug_snapshot, with_settings};
 use loco_rs::testing::prelude::*;
-use perimeter::{app::App, models::users};
+use surface::{app::App, models::users};
 use serial_test::serial;
 
 use super::prepare_data;

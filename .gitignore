@@ -1,5 +1,5 @@
 # =====================================================================
-# AREA .gitignore
+# Surface Volume .gitignore
 # Package-specific rules live in that package's own .gitignore.
 # =====================================================================
 
@@ -71,4 +71,4 @@ devenv.local.yaml
 .pre-commit-config.yaml
 
 # ---------- Course material ----------
-docs/area-bootstrap.pdf
+docs/surface-volume-bootstrap.pdf

@@ -18,10 +18,10 @@ import { INestApplication } from '@nestjs/common';
 export class AppModule {
   static setupSwagger(app: INestApplication): void {
     const config = new DocumentBuilder()
-      .setTitle('AREA API')
-      .setDescription('Area automation platform API - OpenAPI spec for Kotlin Multiplatform client generation')
+      .setTitle('Surface Volume API')
+      .setDescription('Surface Volume automation platform API - OpenAPI spec for Kotlin Multiplatform client generation')
       .setVersion('1.0')
-      .addTag('area')
+      .addTag('surface-volume')
       .addTag('ping')
       .addBearerAuth({
         type: 'http',

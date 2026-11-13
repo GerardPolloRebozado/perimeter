@@ -12,7 +12,7 @@ plugins {
 kotlin {
     // Target 1: Android (used by :androidApp)
     android {
-        namespace = "com.area.spike2.kmp.shared"
+        namespace = "com.surfacevolume.spike2.kmp.shared"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions {

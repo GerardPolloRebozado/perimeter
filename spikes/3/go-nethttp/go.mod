@@ -1,4 +1,4 @@
-module perimeter-volume/spike-3/go-nethttp
+module surface-volume/spike-3/go-nethttp
 
 go 1.27
 

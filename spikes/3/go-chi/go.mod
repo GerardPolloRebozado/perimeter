@@ -1,4 +1,4 @@
-module perimeter-volume/spike-3/go-chi
+module surface-volume/spike-3/go-chi
 
 go 1.27
 
