@@ -36,6 +36,23 @@ Kubernetes, Front Door, a second region and private networking are out. Any of t
 * **AKS.** A cluster is something we would have to operate. We do not have the traffic, and we do not want the on-call.
 * **Bicep.** It is native to Azure. Terraform is the one that gives us `plan` on the pull request and `apply` on main, and the files stay readable if the host ever changes.
 
+## Cost
+
+List prices for **France Central**, from the Azure retail prices API on 13 Nov 2026. A month is 730 hours. The API is left running and Container Apps is scaled to zero.
+
+| Piece | Meter | Month |
+|---|---|---|
+| Postgres Flexible Server, Burstable B1MS | $0.019 per hour | $13.87 |
+| Postgres disk, 32 GB | $0.133 per GB | $4.26 |
+| Container Registry, Basic | $0.1666 per day | $5.07 |
+| Blob storage for the Wasm site and Terraform state | $0.0192 per GB, Hot LRS | a few cents |
+| Container Apps, inside the free grant | $0 | $0 |
+| **Total** | | **about $23** |
+
+The $100 Azure for Students credit covers that for about four months. The same offer, for a new Azure customer and for 12 months, includes 750 hours of this B1MS server with 32 GB of storage and 32 GB of backup, plus one Standard registry. Those two lines then drop to $0 and the credit stays put. Container Apps is always free for the first 180,000 vCPU-seconds, 360,000 GB-seconds and 2 million requests each month.
+
+One replica left running all month is about $10 if Azure counts it as idle, and about $34 if the Node process stays above the idle threshold (0.01 vCPU). That second case spends the $100 in under two months. High availability, a second region and Redis are not in this table.
+
 ## Consequences
 
 ### Positive
