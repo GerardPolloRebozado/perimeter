@@ -66,3 +66,4 @@ local.properties
 *.iml
 *.ipr
 out/
+kotlin-js-store/
