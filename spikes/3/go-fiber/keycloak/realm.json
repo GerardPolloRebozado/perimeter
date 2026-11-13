@@ -1,11 +1,11 @@
 {
-  "realm": "area",
+  "realm": "surface-volume",
   "enabled": true,
   "sslRequired": "external",
   "registrationAllowed": false,
   "clients": [
     {
-      "clientId": "area-spike",
+      "clientId": "surface-volume-spike",
       "enabled": true,
       "publicClient": true,
       "directAccessGrantsEnabled": true,

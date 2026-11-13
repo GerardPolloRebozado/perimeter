@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-chi)"
+  title: "Surface Volume API (spike: go-chi)"
   version: 0.0.1
   description: Chi variant of the reference composition root.
 paths:

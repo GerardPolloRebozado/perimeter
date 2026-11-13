@@ -17,11 +17,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "org.area.perimeter.MainKt"
+        mainClass = "org.surfacevolume.surface.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.area.perimeter"
+            packageName = "org.surfacevolume.surface"
             packageVersion = "1.0.0"
         }
     }

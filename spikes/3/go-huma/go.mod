@@ -1,4 +1,4 @@
-module perimeter-volume/spike-3/go-huma
+module surface-volume/spike-3/go-huma
 
 go 1.27
 

@@ -9,9 +9,9 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/labstack/echo/v4"
 
-	"perimeter-volume/spike-3/go-echo/internal/cfg"
-	"perimeter-volume/spike-3/go-echo/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-echo/internal/jobs"
+	"surface-volume/spike-3/go-echo/internal/cfg"
+	"surface-volume/spike-3/go-echo/internal/db/sqlc"
+	"surface-volume/spike-3/go-echo/internal/jobs"
 )
 
 type Handler struct {

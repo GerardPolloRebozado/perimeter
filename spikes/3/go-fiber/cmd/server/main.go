@@ -13,11 +13,11 @@ import (
 	"github.com/hibiken/asynq"
 	"golang.org/x/sync/errgroup"
 
-	"perimeter-volume/spike-3/go-fiber/internal/api"
-	"perimeter-volume/spike-3/go-fiber/internal/cfg"
-	"perimeter-volume/spike-3/go-fiber/internal/db"
-	"perimeter-volume/spike-3/go-fiber/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-fiber/internal/jobs"
+	"surface-volume/spike-3/go-fiber/internal/api"
+	"surface-volume/spike-3/go-fiber/internal/cfg"
+	"surface-volume/spike-3/go-fiber/internal/db"
+	"surface-volume/spike-3/go-fiber/internal/db/sqlc"
+	"surface-volume/spike-3/go-fiber/internal/jobs"
 )
 
 func main() {

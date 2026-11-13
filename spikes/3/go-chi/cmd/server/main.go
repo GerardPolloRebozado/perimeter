@@ -14,12 +14,12 @@ import (
 	"github.com/hibiken/asynq"
 	"golang.org/x/sync/errgroup"
 
-	"perimeter-volume/spike-3/go-chi/internal/auth"
-	"perimeter-volume/spike-3/go-chi/internal/cfg"
-	"perimeter-volume/spike-3/go-chi/internal/db"
-	"perimeter-volume/spike-3/go-chi/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-chi/internal/api"
-	"perimeter-volume/spike-3/go-chi/internal/jobs"
+	"surface-volume/spike-3/go-chi/internal/auth"
+	"surface-volume/spike-3/go-chi/internal/cfg"
+	"surface-volume/spike-3/go-chi/internal/db"
+	"surface-volume/spike-3/go-chi/internal/db/sqlc"
+	"surface-volume/spike-3/go-chi/internal/api"
+	"surface-volume/spike-3/go-chi/internal/jobs"
 )
 
 func main() {

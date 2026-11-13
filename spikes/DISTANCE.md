@@ -6,7 +6,7 @@ Three timeboxed spikes, same target: a server listening on port 8080, answering 
 
 ## The three runs
 
-| | **NestJS** (`spikes/5/area/`) | **Kotlin Multiplatform** (`spikes/2/kmp/`) | **Cassandra + Spring** (`spikes/2/cassandra/`) |
+| | **NestJS** (`spikes/5/surface-volume/`) | **Kotlin Multiplatform** (`spikes/2/kmp/`) | **Cassandra + Spring** (`spikes/2/cassandra/`) |
 |---|---|---|---|
 | Layer probed | Backend | Frontend (Android + web) | Persistence |
 | Ping target (`:8080/ping`, env port) | ✅ reached | ✅ reached (web + Android calling `:8080`) | ✅ reached - with a **503** variant when the DB is down |
@@ -19,4 +19,4 @@ Three timeboxed spikes, same target: a server listening on port 8080, answering 
 
 * **The bias check worked.** The spike we liked least on paper (Cassandra) was the one that produced the most decision-relevant evidence - it is why PostgreSQL won on *integrity*, not on vibes, and why MongoDB became a documented contingency instead of a hunch.
 * **"Distance" is layer-relative.** The frontend spike travelled the least in *features* and the most in *risks retired* (Wasm bundle size, platform-leak debugging, Gradle cost).
-* **Per-query table modelling is the Cassandra cost**, not its syntax - that finding, not a benchmark, killed it for AREA.
+* **Per-query table modelling is the Cassandra cost**, not its syntax - that finding, not a benchmark, killed it for Surface Volume.

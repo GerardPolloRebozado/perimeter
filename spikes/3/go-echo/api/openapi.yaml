@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-echo)"
+  title: "Surface Volume API (spike: go-echo)"
   version: 0.0.1
   description: Echo variant of the reference composition root.
 paths:

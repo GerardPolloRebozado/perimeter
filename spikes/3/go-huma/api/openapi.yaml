@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-huma)"
+  title: "Surface Volume API (spike: go-huma)"
   version: 0.0.1
   description: Huma variant of the reference composition root.
 paths:

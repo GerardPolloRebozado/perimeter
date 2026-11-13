@@ -7,7 +7,7 @@
 
 | Layer | Choice | Spike evidence | ADR |
 |---|---|---|---|
-| Backend | **NestJS** (TypeScript, Node.js) | spike 5 - `spikes/5/area/` | [ADR 0001](adr/0001-nestjs-backend.md) |
+| Backend | **NestJS** (TypeScript, Node.js) | spike 5 - `spikes/5/surface-volume/` | [ADR 0001](adr/0001-nestjs-backend.md) |
 | Frontend | **Kotlin Multiplatform + Compose** (Android + web) | spike 2 - `spikes/2/kmp/` | [ADR 0002](adr/0002-kotlin-multiplatform-frontend.md) |
 | Database | **PostgreSQL** (JSONB for workflow configs) | spikes 2 & 3 | [ADR 0003](adr/0003-postgresql-database.md) |
 | Contingency | MongoDB - **not adopted**, deferred with explicit triggers | spike 5 matrix | [ADR 0004](adr/0004-mongodb-workflow-json-future.md) |
@@ -17,7 +17,7 @@
 
 Every choice is backed by a **timeboxed spike** we actually ran, an **individual weighted matrix** filled independently (spikes 1,2, 3 and 5), and a **discussion of the divergences** between them.
 
-The criteria that mattered for AREA (an automation platform gluing services together):
+The criteria that mattered for Surface Volume (an automation platform gluing services together):
 
 1. **Cross-platform from one codebase** - small team, every duplicated screen is doubled work.
 2. **Async hooks & background execution** - reactions fire when events happen, not inside a request.
@@ -29,7 +29,7 @@ The criteria that mattered for AREA (an automation platform gluing services toge
 
 ## Backend: NestJS
 
-**Why it was chosen:** it scored highest on the criteria that actually drive AREA.
+**Why it was chosen:** it scored highest on the criteria that actually drive Surface Volume.
 
 `@nestjs/swagger` generates the OpenAPI document from controller decorators (5/5). Passport covers OAuth for every provider we glue (4/5). Handlers are async with first-party `@nestjs/schedule` and `@nestjs/bullmq` for cron and queues (5/5) - the reaction pipeline needs exactly that.
 
@@ -54,7 +54,7 @@ The criteria that mattered for AREA (an automation platform gluing services toge
 
 ## Database: PostgreSQL (+ JSONB)
 
-**Why it was chosen:** AREA's data is relational at its corem, users own workflows, workflows reference services, deleting a user must not leave orphans. Postgres gives us foreign keys and transactions **and** JSONB columns for the arbitrary action/reaction configs, queryable via `->>` and GIN indexes. One engine, both worlds.
+**Why it was chosen:** Surface Volume's data is relational at its corem, users own workflows, workflows reference services, deleting a user must not leave orphans. Postgres gives us foreign keys and transactions **and** JSONB columns for the arbitrary action/reaction configs, queryable via `->>` and GIN indexes. One engine, both worlds.
 
 **What was rejected and why:**
 

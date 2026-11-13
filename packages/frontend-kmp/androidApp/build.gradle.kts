@@ -20,11 +20,11 @@ dependencies {
 }
 
 android {
-    namespace = "org.area.perimeter"
+    namespace = "org.surfacevolume.surface"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "org.area.perimeter"
+        applicationId = "org.surfacevolume.surface"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
