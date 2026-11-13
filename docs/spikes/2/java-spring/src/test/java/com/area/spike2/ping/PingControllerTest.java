@@ -1,4 +1,4 @@
-package com.area.spike2.ping;
+package com.surfacevolume.spike2.ping;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

@@ -1,4 +1,4 @@
-package com.area.spike2.ping.workflow;
+package com.surfacevolume.spike2.ping.workflow;
 
 import java.util.Map;
 import java.util.UUID;

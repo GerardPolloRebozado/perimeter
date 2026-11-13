@@ -11,7 +11,7 @@
 
     # Automatically create the database your Loco app expects on startup
     initialDatabases = [
-      { name = "perimeter_development"; }
+      { name = "surface_development"; }
     ];
     initialScript = ''
       CREATE USER loco WITH SUPERUSER PASSWORD 'loco';

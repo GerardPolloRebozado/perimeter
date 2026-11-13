@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		1291939C16F1956603CC2F16 /* Perimeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Perimeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1291939C16F1956603CC2F16 /* Surface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Surface.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,7 +59,7 @@
 		F7374BFF92E57B382B9C4204 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1291939C16F1956603CC2F16 /* Perimeter.app */,
+				1291939C16F1956603CC2F16 /* Surface.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = 1291939C16F1956603CC2F16 /* Perimeter.app */;
+			productReference = 1291939C16F1956603CC2F16 /* Surface.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

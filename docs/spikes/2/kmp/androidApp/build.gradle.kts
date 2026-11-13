@@ -20,11 +20,11 @@ dependencies {
 }
 
 android {
-    namespace = "com.area.spike2.kmp"
+    namespace = "com.surfacevolume.spike2.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.area.spike2.kmp"
+        applicationId = "com.surfacevolume.spike2.kmp"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

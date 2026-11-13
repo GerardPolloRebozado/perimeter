@@ -3,7 +3,7 @@
 [web.app]
 
 # HTML title tag content
-title = "perimeter"
+title = "surface"
 
 # include `assets` in web platform
 [web.resource]

@@ -1,4 +1,4 @@
-package com.area.spike2.ping;
+package com.surfacevolume.spike2.ping;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;

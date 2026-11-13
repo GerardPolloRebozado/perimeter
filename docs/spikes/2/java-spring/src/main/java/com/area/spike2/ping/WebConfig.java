@@ -1,4 +1,4 @@
-package com.area.spike2.ping;
+package com.surfacevolume.spike2.ping;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

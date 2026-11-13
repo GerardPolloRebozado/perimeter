@@ -9,9 +9,9 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/gin-gonic/gin"
 
-	"perimeter-volume/spike-3/go-gin/internal/cfg"
-	"perimeter-volume/spike-3/go-gin/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-gin/internal/jobs"
+	"surface-volume/spike-3/go-gin/internal/cfg"
+	"surface-volume/spike-3/go-gin/internal/db/sqlc"
+	"surface-volume/spike-3/go-gin/internal/jobs"
 )
 
 type Handler struct {

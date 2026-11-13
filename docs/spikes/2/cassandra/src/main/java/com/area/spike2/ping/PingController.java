@@ -1,4 +1,4 @@
-package com.area.spike2.ping;
+package com.surfacevolume.spike2.ping;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.slf4j.Logger;

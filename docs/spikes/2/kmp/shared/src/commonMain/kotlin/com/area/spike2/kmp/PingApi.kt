@@ -1,4 +1,4 @@
-package com.area.spike2.kmp
+package com.surfacevolume.spike2.kmp
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig

@@ -6,7 +6,7 @@
 
 ## Context
 
-AREA stores **users, linked services and workflows**. The data is fundamentally relational:
+Surface Volume stores **users, linked services and workflows**. The data is fundamentally relational:
 
 * A user owns workflows, deleting a user must not leave orphan workflows,
 * Workflows reference an action service and a reaction service,
@@ -31,4 +31,4 @@ Use **PostgreSQL** for all persistent data. Workflow configurations are stored i
 
 1. **JSONB is schemaless inside a schema.** PostgreSQL does not enforce structure inside the JSON column, an invalid config can be written. We must validate workflow configs **at the API boundary** (Zod schema per service, in the NestJS validation pipe) and accept that the database itself trusts us.
 2. **We are betting JSONB stays enough.** If workflow-config queries become the product's core access pattern and outgrow JSONB, we pay a later migration. See ADR 0004 for the trigger that would justify MongoDB.
-3. **Vertical scaling first.** PostgreSQL scales reads with replicas but writes stay single-primary, if AREA ever becomes write-heavy at scale we can easily migrate to yugabyte db as they are compatible between them
+3. **Vertical scaling first.** PostgreSQL scales reads with replicas but writes stay single-primary, if Surface Volume ever becomes write-heavy at scale we can easily migrate to yugabyte db as they are compatible between them

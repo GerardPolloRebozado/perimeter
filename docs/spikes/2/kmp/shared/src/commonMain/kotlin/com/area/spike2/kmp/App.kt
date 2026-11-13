@@ -1,4 +1,4 @@
-package com.area.spike2.kmp
+package com.surfacevolume.spike2.kmp
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme

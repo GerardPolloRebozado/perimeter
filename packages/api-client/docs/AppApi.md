@@ -17,7 +17,7 @@ All URIs are relative to *http://localhost*
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import area.api.models.*
+//import surfacevolume.api.models.*
 
 val apiInstance = AppApi()
 try {

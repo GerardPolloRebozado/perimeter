@@ -1,4 +1,4 @@
-package com.area.spike2.ping.workflow;
+package com.surfacevolume.spike2.ping.workflow;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-/** Row of area.workflows_by_action_service: same data, partitioned by the triggering service. */
+/** Row of surface_volume.workflows_by_action_service: same data, partitioned by the triggering service. */
 @Table("workflows_by_action_service")
 public record WorkflowByActionService(
         @PrimaryKeyColumn(name = "action_service", type = PrimaryKeyType.PARTITIONED) String actionService,

@@ -1,4 +1,4 @@
-package com.area.spike2.kmp
+package com.surfacevolume.spike2.kmp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,7 +43,7 @@ fun PingScreen(api: PingApi) {
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     ) {
         Text(
-            "AREA backend status",
+            "Surface Volume backend status",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.semantics { heading() },
         )

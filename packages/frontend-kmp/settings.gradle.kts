@@ -1,4 +1,4 @@
-rootProject.name = "Perimeter"
+rootProject.name = "Surface"
 
 pluginManagement {
     repositories {

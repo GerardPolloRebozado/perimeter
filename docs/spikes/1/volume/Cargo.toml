@@ -1,11 +1,11 @@
 [workspace]
 
 [package]
-name = "perimeter"
+name = "surface"
 version = "0.1.0"
 edition = "2021"
 publish = false
-default-run = "perimeter-cli"
+default-run = "surface-cli"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -52,7 +52,7 @@ ts-rs = { version = "12", features = ["chrono-impl", "serde-compat"] }
 include_dir = { version = "0.7" }
 
 [[bin]]
-name = "perimeter-cli"
+name = "surface-cli"
 path = "src/bin/main.rs"
 required-features = []
 

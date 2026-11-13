@@ -1,4 +1,4 @@
-package com.area.spike2.ping.workflow;
+package com.surfacevolume.spike2.ping.workflow;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 /**
- * Row of area.workflows_by_user: partitioned by user.
+ * Row of surface_volume.workflows_by_user: partitioned by user.
  * Column names are explicit: by default Spring maps "actionService" to "actionservice", not "action_service".
  */
 @Table("workflows_by_user")

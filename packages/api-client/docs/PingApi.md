@@ -17,7 +17,7 @@ Health check endpoint
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import area.api.models.*
+//import surfacevolume.api.models.*
 
 val apiInstance = PingApi()
 try {

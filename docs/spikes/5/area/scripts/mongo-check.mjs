@@ -9,7 +9,7 @@ const client = new MongoClient(uri);
 
 try {
   await client.connect();
-  const db = client.db('area');
+  const db = client.db('surface_volume');
   const probes = db.collection('probes');
   const testedAt = new Date().toISOString();
 
