@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-fiber)"
+  title: "Surface Volume API (spike: go-fiber)"
   version: 0.0.1
   description: Fiber variant of the reference composition root.
 paths:

@@ -1,4 +1,4 @@
-module perimeter-volume/spike-3/go-fiber
+module surface-volume/spike-3/go-fiber
 
 go 1.27
 

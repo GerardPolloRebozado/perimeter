@@ -1,5 +1,5 @@
 use loco_rs::testing::prelude::*;
-use perimeter::app::App;
+use surface::app::App;
 use serial_test::serial;
 
 #[tokio::test]

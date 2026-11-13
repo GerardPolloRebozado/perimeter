@@ -29,7 +29,7 @@ kotlin {
         binaries.executable()
     }
     android {
-       namespace = "org.area.perimeter.shared"
+       namespace = "org.surfacevolume.surface.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
        compilerOptions {

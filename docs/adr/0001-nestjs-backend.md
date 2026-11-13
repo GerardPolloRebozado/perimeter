@@ -6,7 +6,7 @@
 
 ## Context
 
-AREA needs an application server that:
+Surface Volume needs an application server that:
 
 * Exposes a REST API consumed by a mobile + web client,
 * Triggers **actions** when external events happen (webhooks, polling) and runs **reactions** - including asynchronous, long-running work outside the request cycle,
@@ -30,7 +30,7 @@ Use **NestJS** (TypeScript on Node.js) as the backend framework.
 ### Positive
 
 * **OpenAPI first-class.** `@nestjs/swagger` builds the OpenAPI document from controller decorators - scored 5/5 in the spike. The KMP client contract comes from it.
-* **OAuth/OIDC ecosystem.** Passport strategies cover every provider AREA glues together, scored 4/5 against Spring's 3/5 on this criterion in our matrix.
+* **OAuth/OIDC ecosystem.** Passport strategies cover every provider Surface Volume glues together, scored 4/5 against Spring's 3/5 on this criterion in our matrix.
 * **Async hooks and background execution** scored 5/5: handlers are async, and first-party `@nestjs/schedule` (cron) and `@nestjs/bullmq` (queues) cover the reaction pipeline without homegrown infra.
 * **Ecosystem maturity** scored 5/5 - an established, widely used framework, so our timeboxed spike produced a working server quickly.
 * **Team velocity.** We can recruit knowledge from the largest JS/TS ecosystem, AI tooling knows it deeply, which speeds iteration.

@@ -1,9 +1,9 @@
-# AREA — Monorepo
+# Surface Volume — Monorepo
 
 Automation platform: NestJS backend + Kotlin Multiplatform frontend, with a generated Kotlin API client from the NestJS OpenAPI spec.
 
 ```
-area-monorepo/
+surface-volume-monorepo/
 ├── packages/
 │   ├── backend-nestjs/     # NestJS REST API (TypeScript)
 │   ├── frontend-kmp/       # Kotlin Multiplatform (Android + web)
@@ -82,7 +82,7 @@ docker --version     # 20.x+
 ### 1. Clone and install
 
 ```bash
-cd /path/to/area-monorepo
+cd /path/to/surface-volume-monorepo
 
 # Install backend dependencies
 cd packages/backend-nestjs

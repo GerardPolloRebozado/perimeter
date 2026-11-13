@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-gin)"
+  title: "Surface Volume API (spike: go-gin)"
   version: 0.0.1
   description: Gin variant of the reference composition root.
 paths:

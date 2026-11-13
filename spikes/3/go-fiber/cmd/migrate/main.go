@@ -13,7 +13,7 @@ import (
 func main() {
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
-		dsn = "postgres://area:area@localhost:5432/area?sslmode=disable"
+		dsn = "postgres://surface_volume:surface_volume@localhost:5432/surface_volume?sslmode=disable"
 	}
 	db, err := sql.Open("pgx", dsn)
 	if err != nil {

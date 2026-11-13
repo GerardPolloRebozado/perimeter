@@ -1,5 +1,5 @@
 {
-  "name": "area-monorepo",
+  "name": "surface-volume-monorepo",
   "private": true,
   "workspaces": [
     "packages/*"

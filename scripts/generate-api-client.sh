@@ -11,7 +11,7 @@ OPENAPI_JSON="$REPO_ROOT/packages/backend-nestjs/openapi.json"
 OUTPUT_DIR="$REPO_ROOT/packages/api-client"
 GENERATOR_VERSION="latest"
 
-echo "=== AREA API Client Generator ==="
+echo "=== Surface Volume API Client Generator ==="
 echo "OpenAPI spec: $OPENAPI_JSON"
 echo "Output: $OUTPUT_DIR"
 
@@ -31,9 +31,9 @@ docker run --rm \
   generate \
   -i "$OPENAPI_JSON" \
   -g kotlin \
-  -p kotlinPackage=area.api \
-  -p apiPackage=area.api.client \
-  -p modelPackage=area.api.models \
+  -p kotlinPackage=surfacevolume.api \
+  -p apiPackage=surfacevolume.api.client \
+  -p modelPackage=surfacevolume.api.models \
   -p dateTimeType=java.time.LocalDateTime \
   -o "$OUTPUT_DIR"
 

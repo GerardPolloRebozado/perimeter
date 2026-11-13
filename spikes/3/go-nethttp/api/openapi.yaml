@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: "AREA API (spike: go-nethttp)"
+  title: "Surface Volume API (spike: go-nethttp)"
   version: 0.0.1
   description: Reference implementation for the HTTP framework spike — pong + hook slice only.
 paths:
