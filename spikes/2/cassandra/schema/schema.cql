@@ -1,11 +1,11 @@
 -- Spike 2 schema. Safe to run several times (IF NOT EXISTS everywhere).
-CREATE KEYSPACE IF NOT EXISTS area
+CREATE KEYSPACE IF NOT EXISTS surface_volume
   WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
 -- Cassandra is modelled query-first: one table per query, data duplicated between them.
 
 -- Query 1: "all workflows of a user" (the user's dashboard).
-CREATE TABLE IF NOT EXISTS area.workflows_by_user (
+CREATE TABLE IF NOT EXISTS surface_volume.workflows_by_user (
   user_id          uuid,
   workflow_id      timeuuid,
   name             text,
@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS area.workflows_by_user (
   PRIMARY KEY ((user_id), workflow_id)
 ) WITH CLUSTERING ORDER BY (workflow_id DESC);
 
--- Query 2: "all workflows triggered by service X" (what AREA's trigger poller needs).
+-- Query 2: "all workflows triggered by service X" (what Surface Volume's trigger poller needs).
 -- Same columns, different partition key.
-CREATE TABLE IF NOT EXISTS area.workflows_by_action_service (
+CREATE TABLE IF NOT EXISTS surface_volume.workflows_by_action_service (
   action_service   text,
   workflow_id      timeuuid,
   user_id          uuid,

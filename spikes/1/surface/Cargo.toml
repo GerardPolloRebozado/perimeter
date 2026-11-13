@@ -1,0 +1,19 @@
+[package]
+name = "surface"
+version = "0.1.0"
+authors = ["gerardPolloRebozado <hi@gerarddupre.dev>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.7.1", features = ["router", "fullstack"] }
+tokio = { version = "1", features = ["full"], optional = true }
+reqwest = "0.13.5"
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]
+server = ["dioxus/server", "dep:tokio"]

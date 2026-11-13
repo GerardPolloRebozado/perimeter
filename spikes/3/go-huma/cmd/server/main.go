@@ -18,10 +18,10 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"golang.org/x/sync/errgroup"
 
-	"perimeter-volume/spike-3/go-huma/internal/cfg"
-	"perimeter-volume/spike-3/go-huma/internal/db"
-	"perimeter-volume/spike-3/go-huma/internal/db/sqlc"
-	"perimeter-volume/spike-3/go-huma/internal/jobs"
+	"surface-volume/spike-3/go-huma/internal/cfg"
+	"surface-volume/spike-3/go-huma/internal/db"
+	"surface-volume/spike-3/go-huma/internal/db/sqlc"
+	"surface-volume/spike-3/go-huma/internal/jobs"
 )
 
 // operations are registered in Go and Huma emits the
@@ -171,7 +171,7 @@ func run() error {
 
 	// define operations in Go, Huma emits OpenAPI
 	// NewAPI with nil adapter uses the built-in net/http adapter
-	api := huma.NewAPI(huma.DefaultConfig("AREA API (spike: go-huma)", "0.0.1"), nil)
+	api := huma.NewAPI(huma.DefaultConfig("Surface Volume API (spike: go-huma)", "0.0.1"), nil)
 
 	huma.Get(api, "/api/v1/ping", h.Ping)
 	huma.Post(api, "/api/v1/hooks", h.ReceiveHook)

@@ -1,5 +1,5 @@
 use loco_rs::{task, testing::prelude::*};
-use perimeter::{app::App, models::users};
+use surface::{app::App, models::users};
 
 use loco_rs::boot::run_task;
 use serial_test::serial;

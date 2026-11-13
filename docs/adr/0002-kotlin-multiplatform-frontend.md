@@ -6,7 +6,7 @@
 
 ## Context
 
-AREA needs a client that runs:
+Surface Volume needs a client that runs:
 
 * As a **mobile app** (Android at minimum),
 * As a **web app**,
