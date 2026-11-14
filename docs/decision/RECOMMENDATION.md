@@ -1,9 +1,15 @@
-# Recommendation - final stack
+# Recommendation
 
-**Chosen stack:** NestJS (TypeScript) backend, Kotlin Multiplatform + Compose frontend, PostgreSQL with JSONB for workflow configurations. MongoDB is explicitly deferred, not adopted.
+**Stack:** NestJS, Kotlin Multiplatform + Compose (Android and web), PostgreSQL. Workflow configs sit in JSONB. MongoDB is deferred (ADR 0004).
 
-The two criteria that actually drove the decision were **cross-platform reach from one codebase** and **async/background execution support**. We are a small team building a service-gluing platform: every duplicated screen or hand-rolled queue is time taken from integration work, which is the actual product. KMP scored 5/5 on the first (the spike's UI, state and networking were entirely shared), and NestJS scored 5/5 on the second (async handlers plus first-party `@nestjs/schedule` and `@nestjs/bullmq`). Postgres won because its spike evidence covered both halves of our data model - foreign keys and transactions for ownership, JSONB for arbitrary workflow configs - where Cassandra and MongoDB each covered only one.
+Two criteria decided it. The team is small, and the product is connecting services.
 
-The trade-off we knowingly accept is **runtime and bundle performance**: Node.js is not the fastest server runtime, and KMP's web target shipped an ~11.5 MB Wasm bundle for one screen. We survive it by design, not by hope - long reactions run in BullMQ workers instead of request handlers, the web app ships code-split and lazy-loaded with bundle size tracked in CI, and workflow configs are validated at the API boundary with Zod since JSONB trusts us.
+**One codebase for Android and web.** In the KMP spike the screen, the state and the HTTP client lived in `commonMain`. Both apps were that screen. Platform code was the backend URL and two entry points.
 
-The main disagreement was **React Native vs Kotlin Multiplatform** for the client: RN scored 4.50/5 on one matrix and its ecosystem familiarity was real, while KMP's web target is young and heavy. It was settled by the rule we agreed before scoring - criteria weights locked first, matrices filled independently, and divergences above two points treated as findings. Both options scored 5/5 on cross-platform, the deciding divergence was **contract type safety** with the OpenAPI backend (3 vs 5), where KMP's `@Serializable` classes turn backend changes into compile errors. If that assumption fails in practice, the fallback is documented in ADR 0002 rather than renegotiated from memory.
+**Background work.** Reactions run outside the HTTP request. NestJS scored 5/5 on this in the spike 5 matrix: async handlers, `@nestjs/schedule` and `@nestjs/bullmq`. Weighted total 4.45/5.
+
+Postgres holds both shapes of data we have. A user owns workflows (foreign keys, transactions). Each workflow's config is JSON that changes per service (JSONB, same database). Cassandra stored one workflow in two tables and rejected queries off the partition key. MongoDB scored 5/5 on JSON and 3/5 on integrity, and would be a second database to sync.
+
+The trade-off is performance. NestJS scored speed 4/5. The KMP web build was ~11.5 MB of Wasm for one screen. Long reactions will run in BullMQ workers, and the web app will be code-split. The spike never started a worker, and CI does not measure the Wasm size yet.
+
+The disagreement was the client. React Native scored 4.50/5 in spike 5, and React is the one we have already used. KMP's web target is young, draws on a canvas, and 11.5 MB is a heavy first load. We kept KMP: one shared screen, and Kotlin generated from the NestJS OpenAPI spec, so a changed backend field fails the build. ADR 0002 records that cost. A different client would be a new ADR.
